@@ -6,7 +6,7 @@ module.exports = function(sequelize, DataTypes) {
     gender: DataTypes.STRING,
     birthday: DataTypes.DATE,
     height: {
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER,
       validate : {
         min : 150
       }
@@ -32,7 +32,7 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
     phone: {
-      type: DataTypes.STRING.
+      type: DataTypes.STRING,
       validate: {
         isNumeric : {
           args: true,
@@ -59,6 +59,7 @@ module.exports = function(sequelize, DataTypes) {
           students.forEach(student => {
             console.log(`first name : ${student.first_name}`);
             console.log(`last name : ${student.last_name}`);
+            console.log(`height : ${student.height}`);
             console.log(`gender : ${student.gender}`);
             console.log(`birthday: ${student.birthday}`);
             console.log(`email : ${student.email}`);

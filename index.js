@@ -8,6 +8,9 @@ function create(obj) {
   .then(student => {
     console.log(student.toJSON());
   })
+  .catch(err => {
+    console.log(err.message);
+  })
   
 }
 
@@ -18,3 +21,4 @@ function getData() {
 
 replServer.context.create = create
 replServer.context.getData = getData
+replServer.context.Student = db.Student
