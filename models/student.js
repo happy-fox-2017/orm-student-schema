@@ -3,7 +3,10 @@ module.exports = function(sequelize, DataTypes) {
   var Student = sequelize.define('Student', {
     first_name: DataTypes.STRING,
     last_name: DataTypes.STRING,
-    age: DataTypes.INTEGER
+    gender: DataTypes.STRING,
+    birthday: DataTypes.DATE,
+    email: DataTypes.STRING,
+    phone: DataTypes.STRING
   }, {
     classMethods: {
       associate: function(models) {

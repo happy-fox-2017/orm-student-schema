@@ -9,13 +9,22 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       first_name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(100)
       },
       last_name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(100)
       },
-      age: {
-        type: Sequelize.INTEGER
+      gender: {
+        type: Sequelize.STRING(25)
+      },
+      birthday: {
+        type: Sequelize.DATE
+      },
+      email: {
+        type: Sequelize.STRING(100)
+      },
+      phone: {
+        type: Sequelize.STRING(30)
       },
       createdAt: {
         allowNull: false,
