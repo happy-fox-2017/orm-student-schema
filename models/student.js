@@ -5,7 +5,36 @@ module.exports = function(sequelize, DataTypes) {
     last_name: DataTypes.STRING,
     gender: DataTypes.STRING,
     birthday: DataTypes.DATE,
-    email: DataTypes.STRING,
+    email: {
+      type: DataTypes.STRING,
+      validate: {
+        isEmail: true,
+        isUnique: function(value, next) {
+            Student.find({
+              where: { email: value },
+              attributes: ['id']
+            })
+              .done(function(error, user) {
+                if (error) {
+                    // Some unexpected error occured with the find method.
+                  return next(error);
+                }
+                if (user) {
+                    // We found a user with this email address.
+                    // Pass the error to the next method.
+                  return next('Email address already in use!');
+                }
+                // If we got this far, the email address hasn't been used yet.
+                // Call next with no arguments when validation is successful.
+                next();
+              });
+        }
+      }
+    },
+    height: {
+      type: DataTypes.INTEGER,
+      validate: { min: 150 }
+    },
     phone: DataTypes.STRING
   }, {
     classMethods: {

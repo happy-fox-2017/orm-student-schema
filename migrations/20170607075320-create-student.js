@@ -20,12 +20,6 @@ module.exports = {
       birthday: {
         type: Sequelize.DATE
       },
-      email: {
-        type: Sequelize.STRING(100)
-      },
-      phone: {
-        type: Sequelize.STRING(30)
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

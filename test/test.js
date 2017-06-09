@@ -5,6 +5,7 @@ const Student = models.Student;
 
 const STUDENT_FIRST_NAME = 'Yusuf';
 const STUDENT_LAST_NAME = 'Arifien';
+const STUDENT_EMAIL = 'myyusuf1911@gmail.com';
 
 describe('Student', function() {
 
@@ -19,7 +20,7 @@ describe('Student', function() {
         last_name: STUDENT_LAST_NAME,
         gender: 'Male',
         birthday: new Date(),
-        email: 'myyusuf1911@gmail.com',
+        email: STUDENT_EMAIL,
         phone: '0818856570',
       })
       .then(() => {
@@ -28,6 +29,61 @@ describe('Student', function() {
       .catch((err) => {
         done(err);
       });
+    });
+
+    it('should throw error with wrong email, height validation', function (done) {
+      Student.create({
+        first_name: STUDENT_FIRST_NAME,
+        last_name: STUDENT_LAST_NAME,
+        gender: 'Male',
+        birthday: new Date(),
+        email: 'myyusuf1911gmailcom',
+        height: 120,
+        phone: '0818856570',
+      })
+      .then(() => {
+        done(new Error('No email and height validation as expected'));
+      })
+      .catch((err) => {
+        const errorPaths = err.errors.map(validationError => validationError.path);
+        // assert.equal(true, errorPaths.indexOf('email') !== -1);
+        // assert.equal(true, false);
+        if (
+          (errorPaths.indexOf('email') !== -1) &&
+          (errorPaths.indexOf('height') !== -1)
+        ) {
+          done();
+        } else {
+          done(new Error('No email and height validation as expected'));
+        }
+      });
+    });
+
+    it('should throw error with unique email validation', function (done) {
+      Student.create({
+        first_name: STUDENT_FIRST_NAME,
+        last_name: STUDENT_LAST_NAME,
+        gender: 'Male',
+        birthday: new Date(),
+        email: STUDENT_EMAIL,
+        height: 170,
+        phone: '0818856570',
+      })
+      .then(() => {
+        done(new Error('No unique email validation as expected'));
+      })
+      .catch((err) => {
+        const errorPaths = err.errors.map(validationError => validationError.path);
+        if (errorPaths.indexOf('email') !== -1) {
+          done();
+        } else {
+          done(new Error('No email and height validation as expected'));
+        }
+      });
+    });
+
+    after(function (done) {
+      Student.destroy({ where: {} }).then(() => done());
     });
   });
 
@@ -41,7 +97,7 @@ describe('Student', function() {
           last_name: STUDENT_LAST_NAME,
           gender: 'Male',
           birthday: new Date(),
-          email: 'myyusuf1911@gmail.com',
+          email: STUDENT_EMAIL,
           phone: '0818856570',
         });
       })
@@ -74,6 +130,10 @@ describe('Student', function() {
       .catch((err) => {
         done(err);
       });
+    });
+
+    after(function (done) {
+      Student.destroy({ where: {} }).then(() => done());
     });
   });
 });
