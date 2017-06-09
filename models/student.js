@@ -35,7 +35,13 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       validate: { min: 150 }
     },
-    phone: DataTypes.STRING
+    phone: {
+      type: DataTypes.STRING,
+      validate: {
+        isNumeric: { msg: 'Must be numeric' },
+        len: { args: [10, 13], msg: 'Must be 10-13' }
+      }
+    }
   }, {
     classMethods: {
       associate: function(models) {

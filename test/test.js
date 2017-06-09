@@ -82,6 +82,58 @@ describe('Student', function() {
       });
     });
 
+    it('should throw error with phone length validation', function (done) {
+      Student.destroy({ where: {} }).then(() => {
+        Student.create({
+          first_name: STUDENT_FIRST_NAME,
+          last_name: STUDENT_LAST_NAME,
+          gender: 'Male',
+          birthday: new Date(),
+          email: STUDENT_EMAIL,
+          height: 170,
+          phone: '0818',
+        })
+        .then(() => {
+          done(new Error('No phone length validation as expected'));
+        })
+        .catch((err) => {
+          const errorPaths = err.errors.map(validationError => validationError.path);
+          console.log(err.errors[0].value);
+          if (errorPaths.indexOf('phone') !== -1) {
+            done();
+          } else {
+            done(new Error('No phone length validation as expected'));
+          }
+        });
+      });
+    });
+
+    it('should throw error with phone numeric validation', function (done) {
+      Student.destroy({ where: {} }).then(() => {
+        Student.create({
+          first_name: STUDENT_FIRST_NAME,
+          last_name: STUDENT_LAST_NAME,
+          gender: 'Male',
+          birthday: new Date(),
+          email: STUDENT_EMAIL,
+          height: 170,
+          phone: '0818188ABCD',
+        })
+        .then(() => {
+          done(new Error('No phone numeric validation as expected'));
+        })
+        .catch((err) => {
+          const errorPaths = err.errors.map(validationError => validationError.path);
+          console.log(err.errors[0].value);
+          if (errorPaths.indexOf('phone') !== -1) {
+            done();
+          } else {
+            done(new Error('No phone numeric validation as expected'));
+          }
+        });
+      });
+    });
+
     after(function (done) {
       Student.destroy({ where: {} }).then(() => done());
     });
