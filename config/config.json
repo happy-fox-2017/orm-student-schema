@@ -1,0 +1,8 @@
+{
+  "development": {
+    "storage": "./db/student.db",
+    "host": "127.0.0.1",
+    "dialect": "sqlite",
+    "logging" : false
+  }
+}
