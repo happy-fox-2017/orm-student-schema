@@ -53,15 +53,14 @@ module.exports = function(sequelize, DataTypes) {
         allData: function (callback) {
           let fullName = []
           Student.findAll() 
-          // ini Student yg diatas.. yg class 
           .then((s) => {
             s.forEach((w) => {
-              let obj = {};
-              obj['id'] = w.id
-              obj['first_name'] = w.first_name
-              obj['last_name'] = w.last_name
-              obj['full_name'] = w.getFullName();
-              fullName.push(obj)
+              let object = {};
+              object['id'] = w.id
+              object['first_name'] = w.first_name
+              object['last_name'] = w.last_name
+              object['full_name'] = w.getFullName();
+              fullName.push(object)
             })
             callback(fullName)
           })
@@ -71,12 +70,12 @@ module.exports = function(sequelize, DataTypes) {
           Student.findAll()
           .then((s)=> {
             s.forEach((w)=> {
-              let obj = {};
-              obj['id'] = w.id;
-              obj['full_name'] = w.getFullName();
-              obj['birthday'] = new Date(w.birthday);
-              obj['age'] = w.getAge()
-              ages.push(obj)
+              let object = {};
+              object['id'] = w.id;
+              object['full_name'] = w.getFullName();
+              object['birthday'] = new Date(w.birthday);
+              object['age'] = w.getAge()
+              ages.push(object)
             })
             callback(ages)
           })

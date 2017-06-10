@@ -12,14 +12,13 @@ function addStudent(first_name, last_name, gender, email, height, phone, birthda
   let createdAt = new Date()
   let updatedAt = new Date()
   db.Student.create({
-    // manggil si CLASS student !! bukan tabel !! 
     first_name: first_name,
     last_name: last_name,
     gender: gender,
     email: email,
     height: height,
     phone: phone,
-    birthday: birthday,
+    birthday: new Date(birthday),
     createdAt: createdAt,
     updatedAt: updatedAt
   }).then(()=> {
@@ -32,9 +31,6 @@ function addStudent(first_name, last_name, gender, email, height, phone, birthda
 function AllStudentData() {
   db.Student.allData((s)=> {
     s.forEach((w)=> {
-      // rows disini cuma penamaan param.. jd bisa apa aja namanya
-      // ini datane dari allData di /models/student.js
-      // sedang row dibawah e.. jg sembarang.. => w aja jg ok
       console.log(w.id)
       console.log(w.first_name);
       console.log(w.last_name);
@@ -52,9 +48,9 @@ function AllStudentAge() {
 }
 
 function help() {
-  console.log(`\n==================================`);
-  console.log(`      ------- HELP -------        `);
-  console.log(`==================================`);
+  console.log(`\n==============================================================================================================`);
+  console.log(`                                              ------- HELP -------        `);
+  console.log(`==============================================================================================================`);
   console.log(`addStudent(firstname(str), lastname(str), gender(str), email(str), height(int), phone(string), birthday(date))`);
   console.log(`AllStudentData()`);
   console.log(`AllStudentAge()`);
