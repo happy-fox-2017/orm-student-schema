@@ -1,7 +1,8 @@
 "use strict"
 const db = require('./models');
+const repl = require('repl');
 
-function findFirstName(){
+function findFirstNameAndAge(){
   db.Student.findAll().then(students => {
     students.forEach(student =>{
       console.log(`${student.getFullName()} dengan Umur ${student.getAge()}`);
@@ -29,8 +30,9 @@ function addData() {
     console.log(err.message);
   })
 }
+const replServer = repl.start("> ");
 
-//findFirstName();
-//db.Student.getAllData();
-addData();
+replServer.context.findFirstNameAndAge = findFirstNameAndAge;
+replServer.context.getAllData = db.Student.getAllData;
+replServer.context.addData = addData;
 

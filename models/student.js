@@ -63,13 +63,13 @@ module.exports = function(sequelize, DataTypes) {
         Student.findAll()
         .then(datas => {
           datas.forEach(data =>{
-            console.log(data.id);
-            console.log(data.first_name);
-            console.log(data.last_name);
-            console.log(data.gender);
-            console.log(data.birthday);
-            console.log(data.email);
-            console.log(data.phone);
+            console.log("first_name : "+data.first_name);
+            console.log("last_name  : "+data.last_name);
+            console.log("gender : "+data.gender);
+            console.log("birthday : "+data.birthday);
+            console.log("Email : "+data.email);
+            console.log("Phone : "+data.phone);
+            console.log("tinggi_badan : "+data.tinggi_badan);
             console.log('\n');
           })
         })
