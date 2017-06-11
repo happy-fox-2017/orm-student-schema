@@ -12,9 +12,18 @@ module.exports = function(sequelize, DataTypes) {
           args : true,
           msg  : "Must be Email type example <test@gmail.com>"
         },
-        unique : {
-          args : true,
-          msg  : "Email already use"
+        isUnique: function(value, next){
+          var self = this;
+          Student.find({where: {email: value}})
+          .then(function(student) {
+            if (student && self.id !== student.id) {
+              return next('Email already in use!');
+            }
+            return next();
+          })
+          .catch(function(err) {
+            return next(err);
+          })
         }
       }
     },
